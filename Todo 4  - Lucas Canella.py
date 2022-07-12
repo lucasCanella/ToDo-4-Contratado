@@ -1,4 +1,5 @@
 from time import sleep
+import csv
 import os
 
 def encerrar_menu(): # Função que encerra o menu
@@ -51,6 +52,32 @@ while menu == True:
         
             sleep(0.5)
             os.system('cls')
+    elif opcao == 2: # opção que lê um arquivo .csv
+        with open('.\lucasCanellaDados.csv', mode = 'r') as arq:
+            leitor = csv.reader(arq, delimiter=';')
+            linha = 1
+            for coluna in leitor:
+                if linha > 0:
+                    nome = coluna[0]
+            vaga = str(coluna[1])
+            if vaga != '1' and vaga != '2':
+                print('Vaga não disponível! Por favor, selecione uma das opções.')
+                if encerrar_menu() == False:
+                    menu = False
+
+            elif vaga == '1':
+                candidatos_total[nome] = 'Analista de dados'
+                resumo = coluna[2].title()
+                palavra_chave(analista_palavras, resumo, candidatos_analista)
+                sleep(0.5)
+                print('Candidato adicionado!')
+            elif vaga == '2':
+                candidatos_total[nome] = 'Cientista de dados'        
+                resumo = coluna[2].title()
+                palavra_chave(cientista_palavras, resumo, candidatos_cientista)
+                sleep(0.5)
+                print('Candidato adicionado!')
+            sleep(1)
     elif opcao == 3: # opção que remove o ultimo candidato cadastrado
         remove = candidatos_total.popitem()
         print(f'O ultimo candidato foi: {remove[0]}')
