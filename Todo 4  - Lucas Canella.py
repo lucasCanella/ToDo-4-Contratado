@@ -30,30 +30,36 @@ while menu == True:
     os.system('cls')
     if opcao == 1: # Opção de inserir candidatos 
         sleep(0.5)
-        candidatos = int(input('Quantos candidatos serão cadastrados? '))
-        for candidato in range (candidatos, 0, -1):
+        candidatos = input('Quantos candidatos serão cadastrados?')
+        if candidatos.isnumeric() == False:
+            print('Digite um número! Resetando o programa...')
+            sleep(2.5)
+        else:
+            candidatos = int(candidatos)
+            for candidato in range (candidatos, 0, -1):
 
-            nome = input('Qual o nome completo do candidato? ')
-            vaga = input('Para qual vaga o candidato está se escrevendo?\n[1] Analista de Dados\n[2] Cientista de dados\nDigite aqui: ')
-            if vaga != '1' and vaga != '2':
-                print('Vaga não disponível! Por favor, selecione uma das opções.')
-                if encerrar_menu() == False:
-                    menu = False
+                nome = input('Qual o nome completo do candidato? ')
+                vaga = input('Para qual vaga o candidato está se escrevendo?\n[1] Analista de Dados\n[2] Cientista de dados\nDigite aqui: ')
 
-            elif vaga == '1':
-                candidatos_total[nome] = 'Analista de dados'
-                resumo = input('Insira um pequeno resumo do currículo do participante para a vaga de Analista de dados: ').title()
-                palavra_chave(analista_palavras, resumo, candidatos_analista)
-                
-            elif vaga == '2':
-                candidatos_total[nome] = 'Cientista de dados'        
-                resumo = input('Insira um pequeno resumo do currículo do participante para a vaga de Cientista de dados: ').title()
-                palavra_chave(cientista_palavras, resumo, candidatos_cientista)
-        
-            sleep(0.5)
-            os.system('cls')
+                if vaga != '1' and vaga != '2':
+                    print('Vaga não disponível! Por favor, selecione uma das opções.')
+                    if encerrar_menu() == False:
+                        menu = False
+
+                elif vaga == '1':
+                    candidatos_total[nome] = 'Analista de dados'
+                    resumo = input('Insira um pequeno resumo do currículo do participante para a vaga de Analista de dados: ').title()
+                    palavra_chave(analista_palavras, resumo, candidatos_analista)
+                    
+                elif vaga == '2':
+                    candidatos_total[nome] = 'Cientista de dados'        
+                    resumo = input('Insira um pequeno resumo do currículo do participante para a vaga de Cientista de dados: ').title()
+                    palavra_chave(cientista_palavras, resumo, candidatos_cientista)
+            
+                sleep(0.5)
+                os.system('cls')
     elif opcao == 2: # opção que lê um arquivo .csv
-        with open('.\lucasCanellaDados.csv', mode = 'r') as arq:
+        with open('.\lucasCanellaDados.csv', mode = 'r') as arq: # É necessário salvar o arquivo .csv na mesma pasta que este arquivo e em uma pasta na área de trabalho
             leitor = csv.reader(arq, delimiter=';')
             linha = 1
             for coluna in leitor:
@@ -79,15 +85,18 @@ while menu == True:
                 print('Candidato adicionado!')
             sleep(1)
     elif opcao == 3: # opção que remove o ultimo candidato cadastrado
-        remove = candidatos_total.popitem()
-        print(f'O ultimo candidato foi: {remove[0]}')
-        print(f'Removendo...')
-        sleep(2)
-        if remove[0] in candidatos_analista:
-            candidatos_analista.pop(remove[0])
-        if remove[0] in candidatos_cientista:
-            candidatos_cientista.pop(remove[0])
-
+        if len(candidatos_total) != 0:
+            remove = candidatos_total.popitem()
+            print(f'O ultimo candidato foi: {remove[0]}')
+            print(f'Removendo...')
+            sleep(2)
+            if remove[0] in candidatos_analista:
+                candidatos_analista.pop(remove[0])
+            if remove[0] in candidatos_cientista:
+                candidatos_cientista.pop(remove[0])
+        else:
+            print('Nenhum candidato cadastrado.')
+            sleep(2.5)
     elif opcao == 4: # Opção que mostra os resultados
         print(f'Candidatos cadastrados: {len(candidatos_total)}\nCandidatos para analistas de dados: {len(candidatos_analista)}\nCandidatos para cientista de dados: {len(candidatos_cientista)}\n{len(candidatos_total) - (len(candidatos_analista) + len(candidatos_cientista))} Não cumpriram os requisitos das palavras chaves')
         print(f'Candidatos para Analistas de dados: {list(candidatos_analista.keys())}')
@@ -97,3 +106,6 @@ while menu == True:
     elif opcao == 5: # Sair do programa
         print(('programa encerrado.'))
         menu = False
+    else:
+        print('Por favor, digite uma opção válida.')
+        sleep(2.5)
