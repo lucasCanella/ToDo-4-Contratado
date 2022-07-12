@@ -51,9 +51,20 @@ while menu == True:
         
             sleep(0.5)
             os.system('cls')
+    elif opcao == 3: # opção que remove o ultimo candidato cadastrado
+        remove = candidatos_total.popitem()
+        print(f'O ultimo candidato foi: {remove[0]}')
+        print(f'Removendo...')
+        sleep(2)
+        if remove[0] in candidatos_analista:
+            candidatos_analista.pop(remove[0])
+        if remove[0] in candidatos_cientista:
+            candidatos_cientista.pop(remove[0])
 
-    elif opcao == 4:
-        print(f'Candidatos cadastrados: {len(candidatos_total)}\nCandidatos para analistas de dados: {len(candidatos_analista)}\nCandidatos para cientista de dados: {len(candidatos_cientista)}\n{len(candidatos_total) - (len(candidatos_analista) + len(candidatos_cientista))} Não cumpriram os requisitos das palavras chaves ')
+    elif opcao == 4: # Opção que mostra os resultados
+        print(f'Candidatos cadastrados: {len(candidatos_total)}\nCandidatos para analistas de dados: {len(candidatos_analista)}\nCandidatos para cientista de dados: {len(candidatos_cientista)}\n{len(candidatos_total) - (len(candidatos_analista) + len(candidatos_cientista))} Não cumpriram os requisitos das palavras chaves')
+        print(f'Candidatos para Analistas de dados: {list(candidatos_analista.keys())}')
+        print(f'Candidatos para Cientistas de dados: {list(candidatos_cientista.keys())}')
         if encerrar_menu() == False:
             menu = False
     elif opcao == 5: # Sair do programa
