@@ -7,14 +7,14 @@ def encerrar_menu(): # Função que encerra o menu
         print(('programa encerrado.'))
         return False
 
-def palavra_chave(lista, curriculo, dicionario):
+def palavra_chave(lista, curriculo, dicionario): # Função que checa se o resumo do curriculo do candidato possui alguma das palavras chaves necessárias para a vaga.
     for palavra in lista:
         if palavra in curriculo:
             dicionario[nome] = curriculo
 
 # Listas com palavras-chave de cada vaga
 cientista_palavras = ['Python', 'Banco De Dados', 'Machine Learning', 'Resolução De Problemas', 'Estatística']
-analista_palavras = ['Python', 'Power Bi', 'SQL', 'Boa Comunicação']
+analista_palavras = ['Python', 'Power Bi', 'Sql', 'Boa Comunicação']
 
 candidatos_total     = {} # Dicionário que vai receber os candidatos inscritos {nome : vaga}
 candidatos_analista  = {} # Dicionário que vai receber os candidatos inscritos para analista de dados {nome : resumo}
@@ -26,10 +26,9 @@ while menu == True:
 
     os.system('cls')
     opcao = int(input('O que deseja fazer?\n[1] Inserir candidatos\n[2] Ler arquivo .csv\n[3] Deletar o ultimo candidato cadastrado\n[4] Verificar resultados\n[5] Sair do programa\nDigite aqui:'))
-
+    os.system('cls')
     if opcao == 1: # Opção de inserir candidatos 
         sleep(0.5)
-        os.system('cls')
         candidatos = int(input('Quantos candidatos serão cadastrados? '))
         for candidato in range (candidatos, 0, -1):
 
@@ -52,16 +51,11 @@ while menu == True:
         
             sleep(0.5)
             os.system('cls')
-            print(candidatos_total)
-            print(candidatos_analista)
-            print(candidatos_cientista)
+
     elif opcao == 4:
-        print(f'Foram cadastrados {len(candidatos_total)} candidatos.')
-        
+        print(f'Candidatos cadastrados: {len(candidatos_total)}\nCandidatos para analistas de dados: {len(candidatos_analista)}\nCandidatos para cientista de dados: {len(candidatos_cientista)}\n{len(candidatos_total) - (len(candidatos_analista) + len(candidatos_cientista))} Não cumpriram os requisitos das palavras chaves ')
+        if encerrar_menu() == False:
+            menu = False
     elif opcao == 5: # Sair do programa
         print(('programa encerrado.'))
         menu = False
-
-print(candidatos_total)
-print(candidatos_analista)
-print(candidatos_cientista)
