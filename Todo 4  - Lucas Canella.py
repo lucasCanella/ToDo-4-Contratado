@@ -101,8 +101,25 @@ while menu == True:
         print(f'Candidatos cadastrados: {len(candidatos_total)}\nCandidatos para analistas de dados: {len(candidatos_analista)}\nCandidatos para cientista de dados: {len(candidatos_cientista)}\n{len(candidatos_total) - (len(candidatos_analista) + len(candidatos_cientista))} Não cumpriram os requisitos das palavras chaves')
         print(f'Candidatos para Analistas de dados: {list(candidatos_analista.keys())}')
         print(f'Candidatos para Cientistas de dados: {list(candidatos_cientista.keys())}')
-        if encerrar_menu() == False:
-            menu = False
+        print('')
+        ver_resultado = input('Deseja saber mais sobre algum candidato?\nDigite o nome dele(a) ou digite 0 para encerrar o programa: ')
+        if ver_resultado == '0':
+            if encerrar_menu() == False:
+                menu = False
+        elif ver_resultado in candidatos_analista:
+            print('\n', ver_resultado ,':', candidatos_total[ver_resultado])
+            print(candidatos_analista[ver_resultado], '\n')
+            if encerrar_menu() == False:
+                menu = False
+        elif ver_resultado in candidatos_cientista:
+            print('\n', ver_resultado ,':', candidatos_total[ver_resultado])
+            print(candidatos_cientista[ver_resultado], '\n')
+            if encerrar_menu() == False:
+                menu = False
+        else:
+            print('Esse usuário não está cadastrado para nenhuma das vagas!')
+            if encerrar_menu() == False:
+                menu = False
     elif opcao == 5: # Sair do programa
         print(('programa encerrado.'))
         menu = False
