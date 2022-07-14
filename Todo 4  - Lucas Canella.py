@@ -14,8 +14,8 @@ def palavra_chave(lista, curriculo, dicionario): # Função que checa se o resum
             dicionario[nome] = curriculo
 
 # Listas com palavras-chave de cada vaga
-cientista_palavras = ['Python', 'Banco De Dados', 'Machine Learning', 'Resolução De Problemas', 'Estatística']
-analista_palavras = ['Python', 'Power Bi', 'Sql', 'Boa Comunicação']
+cientista_palavras = ['Python', 'Banco De Dados', 'Machine Learning', 'Resolucao De Problemas', 'Estatistica']
+analista_palavras = ['Python', 'Power Bi', 'Sql', 'Boa Comunicacao']
 
 candidatos_total     = {} # Dicionário que vai receber os candidatos inscritos. {nome : vaga}
 candidatos_analistas = {} # Dicionário que vai receber todos os candidatos inscritos para analista de dados. {nome : resumo}
@@ -65,30 +65,29 @@ while menu == True:
     elif opcao == 2: # opção que lê um arquivo .csv
         with open('.\lucasCanellaDados.csv', mode = 'r') as arq: # É necessário salvar o arquivo .csv na mesma pasta que este arquivo e em uma pasta na área de trabalho
             leitor = csv.reader(arq, delimiter=';')
-            linha = 1
+            linha = 0
             for coluna in leitor:
-                if linha > 0:
+                if linha == 0:
+                    print('Acessando banco de dados...')
+                    linha += 1
+                else:
                     nome = coluna[0]
-            vaga = str(coluna[1])
-            if vaga != '1' and vaga != '2':
-                print('Vaga não disponível! Por favor, selecione uma das opções.')
-                if encerrar_menu() == False:
-                    menu = False
-
-            elif vaga == '1':
-                candidatos_total[nome] = 'Analista de dados'
-                resumo = coluna[2].title()
-                candidatos_analistas[nome] = resumo
-                palavra_chave(analista_palavras, resumo, analista_palavra_chave)
-                sleep(0.5)
-                print('Candidato adicionado!')
-            elif vaga == '2':
-                candidatos_total[nome] = 'Cientista de dados'     
-                resumo = coluna[2].title()
-                candidatos_cientistas[nome] = resumo 
-                palavra_chave(cientista_palavras, resumo, cientista_palavra_chave)
-                sleep(0.5)
-                print('Candidato adicionado!')
+                    vaga = str(coluna[1])
+                    if vaga != '1' and vaga != '2':
+                        print(f'Vaga do usuário {coluna[0]} não está disponível!.')
+                    elif vaga == '1':
+                        candidatos_total[nome] = 'Analista de dados'
+                        resumo = coluna[2].title()
+                        candidatos_analistas[nome] = resumo
+                        palavra_chave(analista_palavras, resumo, analista_palavra_chave)
+                    elif vaga == '2':
+                        candidatos_total[nome] = 'Cientista de dados'     
+                        resumo = coluna[2].title()
+                        candidatos_cientistas[nome] = resumo 
+                        palavra_chave(cientista_palavras, resumo, cientista_palavra_chave)
+                linha += 1
+            sleep(1)
+            print('Candidato(s) adicionado(s)!')
             sleep(1)
     elif opcao == 3: # opção que remove o ultimo candidato cadastrado
         if len(candidatos_total) != 0:
