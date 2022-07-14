@@ -18,8 +18,10 @@ cientista_palavras = ['Python', 'Banco De Dados', 'Machine Learning', 'Resoluç�
 analista_palavras = ['Python', 'Power Bi', 'Sql', 'Boa Comunicação']
 
 candidatos_total     = {} # Dicionário que vai receber os candidatos inscritos {nome : vaga}
-candidatos_analista  = {} # Dicionário que vai receber os candidatos inscritos para analista de dados {nome : resumo}
-candidatos_cientista = {} # Dicionário que vai receber os candidatos inscritos para cientista de dados {nome : resumo}
+candidatos_analistas = {}
+candidatos_cientistas = {}
+analista_palavra_chave  = {} # Dicionário que vai receber os candidatos inscritos para analista de dados que possuem palavra chave {nome : resumo}
+cientista_palavra_chave = {} # Dicionário que vai receber os candidatos inscritos para cientista de dados que possuem palavra chave {nome : resumo}
 
 menu = True
 
@@ -49,12 +51,14 @@ while menu == True:
                 elif vaga == '1':
                     candidatos_total[nome] = 'Analista de dados'
                     resumo = input('Insira um pequeno resumo do currículo do participante para a vaga de Analista de dados: ').title()
-                    palavra_chave(analista_palavras, resumo, candidatos_analista)
+                    candidatos_analistas[nome] = resumo
+                    palavra_chave(analista_palavras, resumo, analista_palavra_chave)
                     
                 elif vaga == '2':
-                    candidatos_total[nome] = 'Cientista de dados'        
+                    candidatos_total[nome] = 'Cientista de dados'
                     resumo = input('Insira um pequeno resumo do currículo do participante para a vaga de Cientista de dados: ').title()
-                    palavra_chave(cientista_palavras, resumo, candidatos_cientista)
+                    candidatos_cientistas[nome] = resumo
+                    palavra_chave(cientista_palavras, resumo, cientista_palavra_chave)
             
                 sleep(0.5)
                 os.system('cls')
@@ -74,13 +78,15 @@ while menu == True:
             elif vaga == '1':
                 candidatos_total[nome] = 'Analista de dados'
                 resumo = coluna[2].title()
-                palavra_chave(analista_palavras, resumo, candidatos_analista)
+                candidatos_analistas[nome] = resumo
+                palavra_chave(analista_palavras, resumo, analista_palavra_chave)
                 sleep(0.5)
                 print('Candidato adicionado!')
             elif vaga == '2':
-                candidatos_total[nome] = 'Cientista de dados'        
+                candidatos_total[nome] = 'Cientista de dados'     
                 resumo = coluna[2].title()
-                palavra_chave(cientista_palavras, resumo, candidatos_cientista)
+                candidatos_cientistas[nome] = resumo 
+                palavra_chave(cientista_palavras, resumo, cientista_palavra_chave)
                 sleep(0.5)
                 print('Candidato adicionado!')
             sleep(1)
@@ -90,30 +96,36 @@ while menu == True:
             print(f'O ultimo candidato foi: {remove[0]}')
             print(f'Removendo...')
             sleep(2)
-            if remove[0] in candidatos_analista:
-                candidatos_analista.pop(remove[0])
-            if remove[0] in candidatos_cientista:
-                candidatos_cientista.pop(remove[0])
+            if remove[0] in analista_palavra_chave:
+                analista_palavra_chave.pop(remove[0])
+                candidatos_analistas.pop(remove[0])
+            if remove[0] in cientista_palavra_chave:
+                cientista_palavra_chave.pop(remove[0])
+                candidatos_cientistas.pop(remove[0])
         else:
             print('Nenhum candidato cadastrado.')
             sleep(2.5)
     elif opcao == 4: # Opção que mostra os resultados
-        print(f'Candidatos cadastrados: {len(candidatos_total)}\nCandidatos para analistas de dados: {len(candidatos_analista)}\nCandidatos para cientista de dados: {len(candidatos_cientista)}\n{len(candidatos_total) - (len(candidatos_analista) + len(candidatos_cientista))} Não cumpriram os requisitos das palavras chaves')
-        print(f'Candidatos para Analistas de dados: {list(candidatos_analista.keys())}')
-        print(f'Candidatos para Cientistas de dados: {list(candidatos_cientista.keys())}')
+        print(f'Candidatos cadastrados: {len(candidatos_total)}')
+        print('')
+        print(f'Candidatos para analistas de dados: {len(candidatos_analistas)} - {len(analista_palavra_chave)} possuem alguma palavra chave no currículo.')
+        print(f'Candidatos Analistas de dados que possuem palavra chave: {list(analista_palavra_chave.keys())}')
+        print('')
+        print(f'Candidatos para Cientista de dados: {len(candidatos_cientistas)} - {len(cientista_palavra_chave)} possuem alguma palavra chave no currículo.')
+        print(f'Candidatos para Cientistas de dados que possuem palavra chave: {list(cientista_palavra_chave.keys())}')
         print('')
         ver_resultado = input('Deseja saber mais sobre algum candidato?\nDigite o nome dele(a) ou digite 0 para encerrar o programa: ')
         if ver_resultado == '0':
             if encerrar_menu() == False:
                 menu = False
-        elif ver_resultado in candidatos_analista:
+        elif ver_resultado in analista_palavra_chave:
             print('\n', ver_resultado ,':', candidatos_total[ver_resultado])
-            print(candidatos_analista[ver_resultado], '\n')
+            print(analista_palavra_chave[ver_resultado], '\n')
             if encerrar_menu() == False:
                 menu = False
-        elif ver_resultado in candidatos_cientista:
+        elif ver_resultado in cientista_palavra_chave:
             print('\n', ver_resultado ,':', candidatos_total[ver_resultado])
-            print(candidatos_cientista[ver_resultado], '\n')
+            print(cientista_palavra_chave[ver_resultado], '\n')
             if encerrar_menu() == False:
                 menu = False
         else:
