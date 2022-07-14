@@ -17,11 +17,11 @@ def palavra_chave(lista, curriculo, dicionario): # Função que checa se o resum
 cientista_palavras = ['Python', 'Banco De Dados', 'Machine Learning', 'Resolução De Problemas', 'Estatística']
 analista_palavras = ['Python', 'Power Bi', 'Sql', 'Boa Comunicação']
 
-candidatos_total     = {} # Dicionário que vai receber os candidatos inscritos {nome : vaga}
-candidatos_analistas = {}
-candidatos_cientistas = {}
-analista_palavra_chave  = {} # Dicionário que vai receber os candidatos inscritos para analista de dados que possuem palavra chave {nome : resumo}
-cientista_palavra_chave = {} # Dicionário que vai receber os candidatos inscritos para cientista de dados que possuem palavra chave {nome : resumo}
+candidatos_total     = {} # Dicionário que vai receber os candidatos inscritos. {nome : vaga}
+candidatos_analistas = {} # Dicionário que vai receber todos os candidatos inscritos para analista de dados. {nome : resumo}
+candidatos_cientistas = {} # Dicionário que vai receber todos os candidatos inscritos para cientista de dados. {nome : resumo}
+analista_palavra_chave  = {} # Dicionário que vai receber os candidatos inscritos para analista de dados que possuem palavra chave. {nome : resumo}
+cientista_palavra_chave = {} # Dicionário que vai receber os candidatos inscritos para cientista de dados que possuem palavra chave. {nome : resumo}
 
 menu = True
 
@@ -40,7 +40,7 @@ while menu == True:
             candidatos = int(candidatos)
             for candidato in range (candidatos, 0, -1):
 
-                nome = input('Qual o nome completo do candidato? ')
+                nome = input('Qual o nome completo do candidato? ').title()
                 vaga = input('Para qual vaga o candidato está se escrevendo?\n[1] Analista de Dados\n[2] Cientista de dados\nDigite aqui: ')
 
                 if vaga != '1' and vaga != '2':
@@ -114,7 +114,7 @@ while menu == True:
         print(f'Candidatos para Cientista de dados: {len(candidatos_cientistas)} - {len(cientista_palavra_chave)} possuem alguma palavra chave no currículo.')
         print(f'Candidatos para Cientistas de dados que possuem palavra chave: {list(cientista_palavra_chave.keys())}')
         print('')
-        ver_resultado = input('Deseja saber mais sobre algum candidato?\nDigite o nome dele(a) ou digite 0 para encerrar o programa: ')
+        ver_resultado = input('Deseja saber mais sobre algum candidato?\nDigite o nome dele(a) ou digite 0 para encerrar o programa: ').title()
         if ver_resultado == '0':
             if encerrar_menu() == False:
                 menu = False
