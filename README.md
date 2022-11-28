@@ -4,9 +4,13 @@ Uma empresa recebeu muitos currículos para determinadas vagas e agora precisa *
 &rarr; Desenvolva um projeto (usando dicionários) que vai gravar a quantidade de currículos para cada vaga e quantas pessoas têm pelo menos uma das palavras chaves necessárias no currículo. Para isso, nosso código Python vai checar quantos candidatos estão se inscrevendo, para qual vaga, nome do candidato e um resumo que a pessoa está enviando.
 
 &rarr; Usar as palavras chaves a seguir para cada vaga. Nosso código deve perguntar:
+
 a. Quantos candidatos serão cadastrados;
+
 b. Qual o nome do candidato; 
+
 c. Para qual vaga está se inscrevendo;
+
 d. Um pequeno texto com o resumo do currículo do participante;
 
 &rarr; Cada vaga busca por candidatos que tenham em seu resumo pelo menos uma das palavras chaves a
